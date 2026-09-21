@@ -1,0 +1,46 @@
+class Solution {
+public:
+    bool search(vector<int>& nums, int target) {
+        set<int> mySet;
+        for (auto num : nums)
+        {
+            mySet.insert(num);
+        }
+        vector<int> noDupNums;
+        for (auto it = mySet.begin(); it != mySet.end(); it++)
+        {
+            noDupNums.push_back(*it);
+        }
+        int l = 0;
+        int r = noDupNums.size() - 1;
+        while (l <= r)
+        {
+            int m = (l + r) /2;
+            if (target == noDupNums[m])
+                return true;
+            if (noDupNums[l] <= noDupNums[r])
+            {
+                if (target < noDupNums[l] || target > noDupNums[m])
+                {
+                    l = m + 1;
+                }
+                else
+                {
+                    r = m - 1;
+                }
+            }
+            else
+            {
+                if (target < noDupNums[m] || target > noDupNums[r])
+                {
+                    r = m - 1;
+                }
+                else
+                {
+                    l = m + 1;
+                }
+            }
+        }
+        return false;
+    }
+};
